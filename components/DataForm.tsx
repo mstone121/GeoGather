@@ -65,7 +65,7 @@ export default function DataForm({
     setLocationType(formValues?.locationType);
     setNotes(formValues?.notes);
     setLocation(formValues?.location);
-  });
+  }, [formValues]);
 
   const getLocation = () => {
     setLoading(true);
