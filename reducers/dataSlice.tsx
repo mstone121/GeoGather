@@ -28,7 +28,7 @@ type Data = {
 
 const dataSlice = createSlice({
   name: "data",
-  initialState: new Array<Data>(),
+  initialState: [] as Data[],
   reducers: {
     addData: (state, action: PayloadAction<FormValues>) =>
       [
