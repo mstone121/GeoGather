@@ -17,11 +17,17 @@ export default function BottomTabNavigator() {
       <BottomTab.Screen
         name="AddData"
         component={AddDataScreen}
-        options={{ tabBarIcon: ({ color }) => <TabBarIcon name="ios-add-sharp" color={color} /> }} />
+        options={{
+          title: "Add Data",
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-add-sharp" color={color} />
+        }} />
       <BottomTab.Screen
         name="DataList"
         component={DataListScreen}
-        options={{ tabBarIcon: ({ color }) => <TabBarIcon name="ios-list-sharp" color={color} /> }}
+        options={{
+          title: "Data List",
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-list-sharp" color={color} />
+        }}
       />
     </BottomTab.Navigator>
   );
