@@ -14,6 +14,7 @@ export default function AddDataScreen({
 
   const onSubmit = (formValues: FormValues) => {
     dispatch(addData(formValues));
+    navigation.navigate("DataList");
   };
 
   return (

@@ -6,10 +6,16 @@ export default {
     screens: {
       Root: {
         screens: {
-          AddDataScren: "AddData",
-          DataListScreen: "DataList"
+          AddDataScreen: "AddData",
+          DataList: {
+            screens: {
+              DataListScreen: "DataList",
+              EditDataScreen: "EditData"
+            }
+          }
         }
       },
+      EditDataScreen: "EditData",
       NotFound: '*',
     },
   },

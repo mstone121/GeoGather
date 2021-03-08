@@ -2,9 +2,10 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import NotFoundScreen from "../screens/NotFoundScreen";
-import BottomTabNavigator from "./BottomTabNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
+import BottomTabNavigator from "./BottomTabNavigator";
+import NotFoundScreen from "../screens/NotFoundScreen";
+import EditData from "../screens/EditDataScreen";
 
 export default function Navigation() {
   return (

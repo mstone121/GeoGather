@@ -36,7 +36,7 @@ const dataSlice = createSlice({
         {
           id: generateFreshId(state),
           formValues: action.payload,
-          createdAt: Date.now(),
+          createdAt: new Date(),
         },
       ] as Data[],
     updateData: (
@@ -48,7 +48,7 @@ const dataSlice = createSlice({
           ? {
               ...data,
               formValues: action.payload.formValues,
-              updatedAt: Date.now(),
+              updatedAt: new Date(),
             }
           : data
       ) as Data[],
