@@ -162,7 +162,11 @@ export default function DataForm({
 
       <Spacer />
 
-      <TextInput label="Notes" value={notes} onChangeText={setNotes} />
+      <TextInput
+        label="Notes"
+        value={notes}
+        onChangeText={(newNotes) => setNotes(newNotes)}
+      />
 
       <Spacer />
 
