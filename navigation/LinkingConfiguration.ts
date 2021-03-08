@@ -6,8 +6,8 @@ export default {
     screens: {
       Root: {
         screens: {
-          AddDataScren: "AddData",
-          DataListScreen: "DataList"
+          AddDataScren: "Add Data",
+          DataListScreen: "Data List"
         }
       },
       NotFound: '*',
