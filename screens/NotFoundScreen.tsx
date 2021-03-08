@@ -1,7 +1,8 @@
-import { ParamListBase } from '@react-navigation/routers';
-import { StackScreenProps } from '@react-navigation/stack';
 import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ParamListBase } from '@react-navigation/routers';
+import { StackScreenProps } from '@react-navigation/stack';
+
 
 export default function NotFoundScreen({
   navigation,

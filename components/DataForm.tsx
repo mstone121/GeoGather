@@ -1,6 +1,5 @@
 import React, { useState, ReactChildren } from "react";
-import { TextInput } from 'react-native';
-import { Text, View } from "./Themed";
+import { Text, TextInput, View } from 'react-native';
 
 type formValues = {
   bores: number

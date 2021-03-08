@@ -6,17 +6,9 @@ export default {
     screens: {
       Root: {
         screens: {
-          TabOne: {
-            screens: {
-              TabOneScreen: 'one',
-            },
-          },
-          TabTwo: {
-            screens: {
-              TabTwoScreen: 'two',
-            },
-          },
-        },
+          AddDataScren: "AddData",
+          DataListScreen: "DataList"
+        }
       },
       NotFound: '*',
     },
