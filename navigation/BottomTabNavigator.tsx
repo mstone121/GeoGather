@@ -1,17 +1,15 @@
 import * as React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 
 import AddDataScreen from '../screens/AddDataScreen';
 import DataListScreen from '../screens/DataListScreen';
 
-const BottomTab = createBottomTabNavigator();
+const BottomTab = createMaterialBottomTabNavigator();
 
 export default function BottomTabNavigator() {
   return (
-    <BottomTab.Navigator
-      initialRouteName="Data List"
-      tabBarOptions={{ activeTintColor: 'blue' }}>
+    <BottomTab.Navigator initialRouteName="Data List">
       <BottomTab.Screen
         name="Add Data"
         component={AddDataScreen}
