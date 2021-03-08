@@ -1,24 +1,119 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import { Picker } from "@react-native-picker/picker";
-import { TextInput } from "react-native-paper";
+import {
+  Button,
+  Caption,
+  Divider,
+  Text,
+  TextInput,
+  useTheme,
+} from "react-native-paper";
+import {
+  requestPermissionsAsync,
+  getCurrentPositionAsync,
+} from "expo-location";
 
-type formValues = {
+type Location = {
+  lat: number;
+  long: number;
+  accuracy: number | null;
+};
+
+type FormValues = {
+  location: Location | undefined;
   bores: number | undefined;
   canopyCondition: number | undefined;
   barkCondition: number | undefined;
+  locationType: string | undefined;
+  notes: string | undefined;
+  created_at: Date;
+  updated_at: Date | undefined;
 };
+
+const padding8 = { padding: 8 };
+const margin8 = { margin: 8 };
+
+function Spacer() {
+  return <Divider style={margin8} />;
+}
 
 const convertToInt = (value: string) =>
   parseInt(value.replace(/^\D+/g, "")) || undefined;
 
-export default function DataForm({ formValues }: { formValues?: formValues }) {
+export default function DataForm({
+  onSubmit,
+  formValues,
+}: {
+  onSubmit: Function;
+  formValues?: FormValues;
+}) {
+  const theme = useTheme();
+
   const [bores, setBores] = useState<number | undefined>();
   const [canopyCondition, setCanopyCondition] = useState<number | undefined>();
   const [barkCondition, setBarkCondition] = useState<number | undefined>();
+  const [locationType, setLocationType] = useState<string | undefined>();
+  const [notes, setNotes] = useState<string | undefined>();
+
+  const [location, setLocation] = useState<Location | undefined>();
+  const [errorMsg, setErrorMsg] = useState<string | undefined>();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    setBores(formValues?.bores);
+    setCanopyCondition(formValues?.canopyCondition);
+    setBarkCondition(formValues?.barkCondition);
+    setLocationType(formValues?.locationType);
+    setNotes(formValues?.notes);
+    setLocation(formValues?.location);
+  });
+
+  const getLocation = () => {
+    setLoading(true);
+    setLocation(undefined);
+
+    (async () => {
+      if ((await requestPermissionsAsync()).status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        setLoading(false);
+        return;
+      }
+      setErrorMsg(undefined);
+
+      const { coords } = await getCurrentPositionAsync();
+      setLocation({
+        lat: coords.latitude,
+        long: coords.longitude,
+        accuracy: coords.accuracy,
+      });
+      setLoading(false);
+    })();
+  };
 
   return (
-    <View>
+    <View style={padding8}>
+      <Button
+        disabled={loading}
+        onPress={getLocation}
+        mode="outlined"
+        style={{ marginBottom: 8 }}
+      >
+        Get Location
+      </Button>
+
+      {errorMsg && (
+        <Caption style={{ color: theme.colors.error }}>{errorMsg}</Caption>
+      )}
+
+      <Text>{`Latitude: ${location?.lat ?? ""}`}</Text>
+      <Text>{`Longitude: ${location?.long ?? ""}`}</Text>
+      {location?.accuracy && (
+        <Text>{`Accuracy: ${location.accuracy} meters`}</Text>
+      )}
+
+      <Spacer />
+
       <TextInput
         label="Bore Count"
         value={bores?.toString() ?? ""}
@@ -59,6 +154,12 @@ export default function DataForm({ formValues }: { formValues?: formValues }) {
       <Spacer />
 
       <TextInput label="Notes" value={notes} onChangeText={setNotes} />
+
+      <Spacer />
+
+      <Button onPress={onSubmit} mode="contained">
+        Save
+      </Button>
     </View>
   );
 }
