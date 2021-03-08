@@ -19,7 +19,7 @@ const generateFreshId = (state: Data[]) => {
   return id;
 };
 
-type Data = {
+export type Data = {
   id: string;
   formValues: FormValues;
   createdAt: Date;
