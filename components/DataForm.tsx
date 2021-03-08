@@ -20,15 +20,15 @@ type Location = {
   accuracy: number | null;
 };
 
-type FormValues = {
+export type FormValues = {
   location: Location | undefined;
   bores: number | undefined;
   canopyCondition: number | undefined;
   barkCondition: number | undefined;
   locationType: string | undefined;
   notes: string | undefined;
-  created_at: Date;
-  updated_at: Date | undefined;
+  createdAt: Date;
+  updatedAt: Date | undefined;
 };
 
 const padding8 = { padding: 8 };
@@ -45,7 +45,7 @@ export default function DataForm({
   onSubmit,
   formValues,
 }: {
-  onSubmit: Function;
+  onSubmit: (formValues: FormValues) => any;
   formValues?: FormValues;
 }) {
   const theme = useTheme();
@@ -89,6 +89,19 @@ export default function DataForm({
       });
       setLoading(false);
     })();
+  };
+
+  const submitForm = () => {
+    onSubmit({
+      location,
+      bores,
+      canopyCondition,
+      barkCondition,
+      locationType,
+      notes,
+      createdAt: formValues?.createdAt ?? new Date(),
+      updatedAt: formValues?.createdAt ? new Date() : undefined,
+    });
   };
 
   return (
@@ -157,7 +170,7 @@ export default function DataForm({
 
       <Spacer />
 
-      <Button onPress={onSubmit} mode="contained">
+      <Button onPress={submitForm} mode="contained">
         Save
       </Button>
     </View>
