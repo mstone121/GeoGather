@@ -2,8 +2,10 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
+import { Provider as StoreProvider } from "react-redux";
 
 import useCachedResources from "./hooks/useCachedResources";
+import { store } from "./reducers/store";
 import Navigation from "./navigation";
 
 const theme = {
@@ -23,10 +25,12 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <PaperProvider theme={theme}>
-          <Navigation />
-          <StatusBar />
-        </PaperProvider>
+        <StoreProvider store={store}>
+          <PaperProvider theme={theme}>
+            <Navigation />
+            <StatusBar />
+          </PaperProvider>
+        </StoreProvider>
       </SafeAreaProvider>
     );
   }
