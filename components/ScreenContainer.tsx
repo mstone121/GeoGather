@@ -12,7 +12,7 @@ type ScreenContainerProps = {
 
 export default function ScreenContainer({ title, children, navigation }: ScreenContainerProps) {
   return (
-    <View style={styles.container}>
+    <View>
       <Appbar.Header>
         {navigation.canGoBack() && <Appbar.BackAction onPress={() => { navigation.goBack() }} />}
         <Appbar.Content title={title} />
@@ -22,20 +22,3 @@ export default function ScreenContainer({ title, children, navigation }: ScreenC
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-});
