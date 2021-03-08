@@ -27,8 +27,6 @@ export type FormValues = {
   barkCondition: number | undefined;
   locationType: string | undefined;
   notes: string | undefined;
-  createdAt: Date;
-  updatedAt: Date | undefined;
 };
 
 const padding8 = { padding: 8 };
@@ -99,8 +97,6 @@ export default function DataForm({
       barkCondition,
       locationType,
       notes,
-      createdAt: formValues?.createdAt ?? new Date(),
-      updatedAt: formValues?.createdAt ? new Date() : undefined,
     });
   };
 
