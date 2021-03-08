@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import AddDataScreen from '../screens/AddDataScreen';
 import DataListScreen from '../screens/DataListScreen';
 
 const BottomTab = createBottomTabNavigator();
@@ -14,13 +15,19 @@ export default function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="DataList"
+      initialRouteName="Data List"
       tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="DataList"
+        name="Add Data"
+        component={AddDataScreen}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-add-sharp" color={color} />
+        }} />
+      <BottomTab.Screen
+        name="Data List"
         component={DataListScreen}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="ios-list-sharp" color={color} />,
         }}
       />
     </BottomTab.Navigator>

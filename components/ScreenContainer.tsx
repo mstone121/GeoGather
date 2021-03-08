@@ -5,7 +5,7 @@ import { Text, View } from "../components/Themed";
 
 type ScreenContainerProps = {
   title: string;
-  children?: React.ReactChildren;
+  children?: React.ReactElement;
 };
 
 export default function ScreenContainer({ title, children }: ScreenContainerProps) {
