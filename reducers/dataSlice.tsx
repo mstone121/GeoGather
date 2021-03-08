@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { FormValues } from "../components/DataForm";
 
@@ -30,20 +30,34 @@ const dataSlice = createSlice({
   name: "data",
   initialState: new Array<Data>(),
   reducers: {
-    addData: (state, action) => {
-      return [
+    addData: (state, action: PayloadAction<FormValues>) =>
+      [
         ...state,
         {
           id: generateFreshId(state),
           formValues: action.payload,
           createdAt: Date.now(),
         },
-      ] as Data[];
-    },
+      ] as Data[],
+    updateData: (
+      state,
+      action: PayloadAction<{ id: string; formValues: FormValues }>
+    ) =>
+      state.map((data: Data) =>
+        data.id === action.payload.id
+          ? {
+              ...data,
+              formValues: action.payload.formValues,
+              updatedAt: Date.now(),
+            }
+          : data
+      ) as Data[],
+    removeData: (state, action: PayloadAction<string>) =>
+      state.filter((data: Data) => data.id !== action.payload),
   },
   extraReducers: {},
 });
 
-export const { addData } = dataSlice.actions;
+export const { addData, updateData, removeData } = dataSlice.actions;
 
 export default dataSlice.reducer;
