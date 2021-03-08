@@ -1,17 +1,14 @@
 import * as React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
-import { ParamListBase } from '@react-navigation/routers';
 import { StackScreenProps } from '@react-navigation/stack';
 import { Button } from 'react-native-paper';
 
+import { RootStackParams } from '../navigation';
 import ScreenContainer from '../components/ScreenContainer';
 
 
-export default function NotFoundScreen({
-  navigation,
-}: StackScreenProps<ParamListBase, 'NotFound'>) {
+export default function NotFoundScreen({ navigation }: StackScreenProps<RootStackParams, "NotFound">) {
   return (
-    <ScreenContainer title="Not found">
+    <ScreenContainer title="Not found" navigation={navigation}>
       <Button onPress={() => navigation.replace('Root')}>Go to home screen!</Button>
     </ScreenContainer>
   );

@@ -14,13 +14,18 @@ export default function Navigation() {
   );
 }
 
-const RootStack = createStackNavigator();
+export type RootStackParams = {
+  Root: undefined;
+  NotFound: undefined;
+}
+
+const RootStack = createStackNavigator<RootStackParams>();
 
 function RootNavigator() {
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
       <RootStack.Screen name="Root" component={BottomTabNavigator} />
-      <RootStack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+      <RootStack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Not Found' }} />
     </RootStack.Navigator>
   );
 }

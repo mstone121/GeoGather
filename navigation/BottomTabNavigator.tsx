@@ -5,17 +5,21 @@ import { Ionicons } from '@expo/vector-icons';
 import AddDataScreen from '../screens/AddDataScreen';
 import DataListScreen from '../screens/DataListScreen';
 
-const BottomTab = createMaterialBottomTabNavigator();
+export type BottomTabStackParams = {
+  AddData: undefined,
+  DataList: undefined
+}
+const BottomTab = createMaterialBottomTabNavigator<BottomTabStackParams>();
 
 export default function BottomTabNavigator() {
   return (
-    <BottomTab.Navigator initialRouteName="Data List">
+    <BottomTab.Navigator initialRouteName="DataList">
       <BottomTab.Screen
-        name="Add Data"
+        name="AddData"
         component={AddDataScreen}
         options={{ tabBarIcon: ({ color }) => <TabBarIcon name="ios-add-sharp" color={color} /> }} />
       <BottomTab.Screen
-        name="Data List"
+        name="DataList"
         component={DataListScreen}
         options={{ tabBarIcon: ({ color }) => <TabBarIcon name="ios-list-sharp" color={color} /> }}
       />
