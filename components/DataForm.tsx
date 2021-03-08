@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import { TextInput } from 'react-native-paper';
+import React, { useState } from "react";
+import { View } from "react-native";
+import { Picker } from "@react-native-picker/picker";
+import { TextInput } from "react-native-paper";
 
 type formValues = {
-  bores: number | undefined,
-  canopyCondition: number | undefined,
-  barkCondition: number | undefined
-}
+  bores: number | undefined;
+  canopyCondition: number | undefined;
+  barkCondition: number | undefined;
+};
 
-const convertToInt = (value: string) => parseInt(value.replace(/^\D+/g, '')) || undefined
+const convertToInt = (value: string) =>
+  parseInt(value.replace(/^\D+/g, "")) || undefined;
 
 export default function DataForm({ formValues }: { formValues?: formValues }) {
   const [bores, setBores] = useState<number | undefined>();
@@ -20,9 +21,10 @@ export default function DataForm({ formValues }: { formValues?: formValues }) {
     <View>
       <TextInput
         label="Bore Count"
-        value={bores?.toString() ?? ''}
-        onChangeText={newValue => setBores(convertToInt(newValue))}
-        keyboardType="numeric" />
+        value={bores?.toString() ?? ""}
+        onChangeText={(newValue) => setBores(convertToInt(newValue))}
+        keyboardType="numeric"
+      />
 
       <Picker
         selectedValue={canopyCondition}
@@ -35,15 +37,12 @@ export default function DataForm({ formValues }: { formValues?: formValues }) {
         <Picker.Item label="Completely Dead" value={3} />
       </Picker>
 
-      <Picker
-        selectedValue={barkCondition}
-        onValueChange={setBarkCondition}
-      >
+      <Picker selectedValue={barkCondition} onValueChange={setBarkCondition}>
         <Picker.Item label="" value={undefined} />
         <Picker.Item label="Intact" value={0} />
         <Picker.Item label="Light Damage" value={1} />
         <Picker.Item label="Heavy Damage" value={2} />
       </Picker>
-    </View >
+    </View>
   );
 }

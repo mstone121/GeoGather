@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
+import * as React from "react";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { Ionicons } from "@expo/vector-icons";
 
-import AddDataScreen from '../screens/AddDataScreen';
-import DataListScreen from '../screens/DataListScreen';
+import AddDataScreen from "../screens/AddDataScreen";
+import DataListScreen from "../screens/DataListScreen";
 
 export type BottomTabStackParams = {
-  AddData: undefined,
-  DataList: undefined
-}
+  AddData: undefined;
+  DataList: undefined;
+};
 const BottomTab = createMaterialBottomTabNavigator<BottomTabStackParams>();
 
 export default function BottomTabNavigator() {
@@ -19,20 +19,28 @@ export default function BottomTabNavigator() {
         component={AddDataScreen}
         options={{
           title: "Add Data",
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-add-sharp" color={color} />
-        }} />
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="ios-add-sharp" color={color} />
+          ),
+        }}
+      />
       <BottomTab.Screen
         name="DataList"
         component={DataListScreen}
         options={{
           title: "Data List",
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-list-sharp" color={color} />
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="ios-list-sharp" color={color} />
+          ),
         }}
       />
     </BottomTab.Navigator>
   );
 }
 
-function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
+function TabBarIcon(props: {
+  name: React.ComponentProps<typeof Ionicons>["name"];
+  color: string;
+}) {
   return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
 }
