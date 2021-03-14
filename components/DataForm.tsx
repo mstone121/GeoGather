@@ -149,6 +149,8 @@ export default function DataForm({
     setBarkCondition(undefined);
     setLocationType(undefined);
     setLocation(undefined);
+    setErrorMsg(undefined);
+    setLoading(false);
   };
 
   return (
