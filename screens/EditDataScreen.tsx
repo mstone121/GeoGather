@@ -9,18 +9,18 @@ import { Data, updateData } from "../reducers/dataSlice";
 import DataForm, { FormValues } from "../components/DataForm";
 
 export default function EditDataScreen({
-  id,
+  route,
   navigation,
 }: StackScreenProps<DataListStackParams, "EditData">) {
   const dispatch = useDispatch();
 
   const formValues = useSelector(
     (state: RootState) =>
-      state.data.find((data: Data) => data.id === id)?.formValues
+      state.data.find((data: Data) => data.id === route.params.id)?.formValues
   );
 
   const onSubmit = (formValues: FormValues) => {
-    dispatch(updateData({ id, formValues }));
+    dispatch(updateData({ id: route.params.id, formValues }));
     navigation.navigate("DataList");
   };
 

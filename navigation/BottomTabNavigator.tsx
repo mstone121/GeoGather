@@ -78,7 +78,6 @@ function DataListNavigator() {
       <DataList.Screen
         name="EditData"
         component={EditDataScreen}
-        initialParams={{ id: undefined }}
         options={{ title: "Edit Data" }}
       />
     </DataList.Navigator>
