@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
+import { ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import {
   Button,
@@ -10,6 +10,7 @@ import {
   useTheme,
 } from "react-native-paper";
 import {
+  hasServicesEnabledAsync,
   requestPermissionsAsync,
   getCurrentPositionAsync,
 } from "expo-location";
@@ -47,6 +48,7 @@ export const LocationTypeOptions = new Array<PickerOption<string>>(
 export type FormValues = {
   location: Location | undefined;
   bores: number | undefined;
+  trunkCirc: number | undefined;
   canopyCondition: number | undefined;
   barkCondition: number | undefined;
   locationType: string | undefined;
@@ -61,7 +63,7 @@ function Spacer() {
 }
 
 const convertToInt = (value: string) =>
-  parseInt(value.replace(/^\D+/g, "")) || undefined;
+  parseInt(value.replace(/\D+/g, "")) || undefined;
 
 export default function DataForm({
   onSubmit,
@@ -73,6 +75,7 @@ export default function DataForm({
   const theme = useTheme();
 
   const [bores, setBores] = useState<number | undefined>();
+  const [trunkCirc, setTrunkCirc] = useState<number | undefined>();
   const [canopyCondition, setCanopyCondition] = useState<number | undefined>();
   const [barkCondition, setBarkCondition] = useState<number | undefined>();
   const [locationType, setLocationType] = useState<string | undefined>();
@@ -84,6 +87,7 @@ export default function DataForm({
 
   useEffect(() => {
     setBores(formValues?.bores);
+    setTrunkCirc(formValues?.trunkCirc);
     setCanopyCondition(formValues?.canopyCondition);
     setBarkCondition(formValues?.barkCondition);
     setLocationType(formValues?.locationType);
@@ -92,6 +96,7 @@ export default function DataForm({
   }, [
     formValues,
     setBores,
+    setTrunkCirc,
     setCanopyCondition,
     setBarkCondition,
     setLocationType,
@@ -109,6 +114,10 @@ export default function DataForm({
         setLoading(false);
         return;
       }
+      if (!(await hasServicesEnabledAsync())) {
+        setErrorMsg("Permission service unavailable");
+        setLoading(false);
+      }
       setErrorMsg(undefined);
 
       const { coords } = await getCurrentPositionAsync();
@@ -125,6 +134,7 @@ export default function DataForm({
     onSubmit({
       location,
       bores,
+      trunkCirc,
       canopyCondition,
       barkCondition,
       locationType,
@@ -134,6 +144,7 @@ export default function DataForm({
     // reset form
     setLocation(undefined);
     setBores(undefined);
+    setTrunkCirc(undefined);
     setCanopyCondition(undefined);
     setBarkCondition(undefined);
     setLocationType(undefined);
@@ -141,7 +152,7 @@ export default function DataForm({
   };
 
   return (
-    <View style={padding8}>
+    <ScrollView style={padding8}>
       <Button
         disabled={loading}
         onPress={getLocation}
@@ -170,6 +181,17 @@ export default function DataForm({
         keyboardType="numeric"
       />
 
+      <Spacer />
+
+      <TextInput
+        label="Trunk Circumference (cm) at 1m"
+        value={trunkCirc?.toString() ?? ""}
+        onChangeText={(newValue) => setTrunkCirc(convertToInt(newValue))}
+        keyboardType="numeric"
+      />
+
+      <Spacer />
+
       <PickerInput
         caption="Canopy Condition"
         value={canopyCondition}
@@ -185,6 +207,8 @@ export default function DataForm({
         onChange={setBarkCondition}
         items={BarkConditionOptions}
       />
+
+      <Spacer />
 
       <PickerInput
         caption="Location Type"
@@ -206,7 +230,7 @@ export default function DataForm({
       <Button onPress={submitForm} mode="contained">
         Save
       </Button>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -223,7 +247,7 @@ function PickerInput<ValueType>({
 }) {
   return (
     <>
-      <Caption>Canopy Condition</Caption>
+      <Caption>{caption}</Caption>
       <Picker selectedValue={value} onValueChange={onChange}>
         <Picker.Item label="(n/a)" value={undefined} />
         {items.map((option: PickerOption<ValueType>) => (
