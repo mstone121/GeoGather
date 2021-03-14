@@ -22,8 +22,8 @@ const generateFreshId = (state: Data[]) => {
 export type Data = {
   id: string;
   formValues: FormValues;
-  createdAt: Date;
-  updatedAt: Date | undefined;
+  createdAt: number;
+  updatedAt: number | undefined;
 };
 
 const dataSlice = createSlice({
@@ -36,7 +36,7 @@ const dataSlice = createSlice({
         {
           id: generateFreshId(state),
           formValues: action.payload,
-          createdAt: new Date(),
+          createdAt: Date.now(),
         },
       ] as Data[],
     updateData: (
@@ -48,7 +48,7 @@ const dataSlice = createSlice({
           ? {
               ...data,
               formValues: action.payload.formValues,
-              updatedAt: new Date(),
+              updatedAt: Date.now(),
             }
           : data
       ) as Data[],
