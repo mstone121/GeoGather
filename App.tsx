@@ -5,8 +5,9 @@ import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 import { Provider as StoreProvider } from "react-redux";
 
 import useCachedResources from "./hooks/useCachedResources";
-import { store } from "./reducers/store";
+import { store, persistor } from "./reducers/store";
 import Navigation from "./navigation";
+import { PersistGate } from "redux-persist/integration/react";
 
 const theme = {
   ...DefaultTheme,
@@ -26,10 +27,12 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <StoreProvider store={store}>
-          <PaperProvider theme={theme}>
-            <Navigation />
-            <StatusBar />
-          </PaperProvider>
+          <PersistGate persistor={persistor}>
+            <PaperProvider theme={theme}>
+              <Navigation />
+              <StatusBar />
+            </PaperProvider>
+          </PersistGate>
         </StoreProvider>
       </SafeAreaProvider>
     );
