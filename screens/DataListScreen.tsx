@@ -34,7 +34,10 @@ function DataListItem({
   editItem: (id: string) => void;
 }) {
   return (
-    <List.Accordion title={data.createdAt.toString()}>
+    <List.Accordion
+      title={new Date(data.createdAt).toString()}
+      style={{ paddingLeft: 8 }}
+    >
       <List.Item
         title="Location"
         description={
