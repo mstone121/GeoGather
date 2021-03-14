@@ -55,7 +55,7 @@ const DataList = createStackNavigator<DataListStackParams>();
 
 function DataListNavigator() {
   return (
-    <DataList.Navigator initialRouteName="DataList" headerMode="none">
+    <DataList.Navigator initialRouteName="DataList">
       <DataList.Screen
         name="DataList"
         component={DataListScreen}

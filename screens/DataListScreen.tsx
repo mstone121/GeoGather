@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { View } from "react-native";
 import { useSelector } from "react-redux";
 import { StackScreenProps } from "@react-navigation/stack";
 import { Button, Card, List } from "react-native-paper";
@@ -6,7 +7,6 @@ import { Button, Card, List } from "react-native-paper";
 import { DataListStackParams } from "../navigation/BottomTabNavigator";
 import { RootState } from "../reducers";
 import { Data } from "../reducers/dataSlice";
-import ScreenContainer from "../components/ScreenContainer";
 
 export default function DataListScreen({
   navigation,
@@ -19,13 +19,13 @@ export default function DataListScreen({
   );
 
   return (
-    <ScreenContainer title="Data List" navigation={navigation}>
+    <View>
       <List.Section>
         {dataList.map((data: Data) => (
           <DataListItem key={data.id} data={data} editItem={editItem} />
         ))}
       </List.Section>
-    </ScreenContainer>
+    </View>
   );
 }
 

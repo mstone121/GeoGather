@@ -1,9 +1,9 @@
-import * as React from "react";
+import React from "react";
+import { View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { StackScreenProps } from "@react-navigation/stack";
 
 import { DataListStackParams } from "../navigation/BottomTabNavigator";
-import ScreenContainer from "../components/ScreenContainer";
 import { RootState } from "../reducers";
 import { Data, updateData } from "../reducers/dataSlice";
 import DataForm, { FormValues } from "../components/DataForm";
@@ -25,8 +25,8 @@ export default function EditDataScreen({
   };
 
   return (
-    <ScreenContainer title="Update Data" navigation={navigation}>
+    <View>
       <DataForm onSubmit={onSubmit} formValues={formValues} />
-    </ScreenContainer>
+    </View>
   );
 }
