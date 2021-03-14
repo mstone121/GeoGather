@@ -164,7 +164,7 @@ export default function DataForm({
 
       <TextInput
         label="Notes"
-        value={notes}
+        value={notes ?? ""}
         onChangeText={(newNotes) => setNotes(newNotes)}
       />
 
