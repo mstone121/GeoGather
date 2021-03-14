@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useTheme } from "react-native-paper";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
@@ -14,8 +15,13 @@ export type BottomTabStackParams = {
 const BottomTab = createMaterialBottomTabNavigator<BottomTabStackParams>();
 
 export default function BottomTabNavigator() {
+  const theme = useTheme();
+
   return (
-    <BottomTab.Navigator initialRouteName="DataList">
+    <BottomTab.Navigator
+      initialRouteName="DataList"
+      barStyle={{ backgroundColor: theme.colors.primary }}
+    >
       <BottomTab.Screen
         name="AddData"
         component={AddDataScreen}
@@ -54,8 +60,16 @@ export type DataListStackParams = {
 const DataList = createStackNavigator<DataListStackParams>();
 
 function DataListNavigator() {
+  const theme = useTheme();
+
   return (
-    <DataList.Navigator initialRouteName="DataList">
+    <DataList.Navigator
+      initialRouteName="DataList"
+      screenOptions={{
+        headerStyle: { backgroundColor: theme.colors.primary },
+        headerTintColor: "#fff",
+      }}
+    >
       <DataList.Screen
         name="DataList"
         component={DataListScreen}
