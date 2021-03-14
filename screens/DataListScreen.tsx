@@ -7,6 +7,19 @@ import { Button, Card, List } from "react-native-paper";
 import { DataListStackParams } from "../navigation/BottomTabNavigator";
 import { RootState } from "../reducers";
 import { Data } from "../reducers/dataSlice";
+import {
+  PickerOption,
+  CanopyConditionOptions,
+  BarkConditionOptions,
+  LocationTypeOptions,
+} from "../components/DataForm";
+
+const getOptionsLabel = <ValueType,>(
+  options: Array<PickerOption<ValueType>>,
+  value: ValueType
+) =>
+  options.find((option: PickerOption<ValueType>) => option.value === value)
+    ?.label ?? "(n/a)";
 
 export default function DataListScreen({
   navigation,
@@ -47,16 +60,29 @@ const DataListItem = React.memo(
             description={data.formValues.bores ?? "(n/a)"}
           />
           <List.Item
+            title="Trunk Circumference at 1m (cm)"
+            description={data.formValues.trunkCirc ?? "(n/a)"}
+          />
+          <List.Item
             title="Canopy Condition"
-            description={data.formValues.canopyCondition ?? "(n/a)"}
+            description={getOptionsLabel(
+              CanopyConditionOptions,
+              data.formValues.canopyCondition
+            )}
           />
           <List.Item
             title="Bark Condition"
-            description={data.formValues.barkCondition ?? "(n/a)"}
+            description={getOptionsLabel(
+              BarkConditionOptions,
+              data.formValues.barkCondition
+            )}
           />
           <List.Item
             title="Location Type"
-            description={data.formValues.locationType ?? "(n/a)"}
+            description={getOptionsLabel(
+              LocationTypeOptions,
+              data.formValues.locationType
+            )}
           />
           <List.Item
             title="Notes"
