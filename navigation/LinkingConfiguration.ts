@@ -12,7 +12,8 @@ export default {
               DataListScreen: "DataList",
               EditDataScreen: "EditData"
             }
-          }
+          },
+          SaveDataScreen: "SaveData"
         }
       },
       NotFound: '*',

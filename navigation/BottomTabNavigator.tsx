@@ -1,16 +1,18 @@
-import * as React from "react";
-import { useTheme } from "react-native-paper";
+import React from "react";
+import { Button, useTheme } from "react-native-paper";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Ionicons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import AddDataScreen from "../screens/AddDataScreen";
+import SaveDataScreen from "../screens/SaveDataScreen";
 import DataListScreen from "../screens/DataListScreen";
 import EditDataScreen from "../screens/EditDataScreen";
 
 export type BottomTabStackParams = {
   AddData: undefined;
   DataList: undefined;
+  SaveData: undefined;
 };
 const BottomTab = createMaterialBottomTabNavigator<BottomTabStackParams>();
 
@@ -27,17 +29,22 @@ export default function BottomTabNavigator() {
         component={AddDataScreen}
         options={{
           title: "Add Data",
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-add-sharp" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <TabBarIcon name="add" color={color} />,
         }}
       />
       <BottomTab.Screen
         name="DataList"
         component={DataListNavigator}
         options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="SaveData"
+        component={SaveDataScreen}
+        options={{
           tabBarIcon: ({ color }) => (
-            <TabBarIcon name="ios-list-sharp" color={color} />
+            <TabBarIcon name="save-alt" color={color} />
           ),
         }}
       />
@@ -46,10 +53,10 @@ export default function BottomTabNavigator() {
 }
 
 function TabBarIcon(props: {
-  name: React.ComponentProps<typeof Ionicons>["name"];
+  name: React.ComponentProps<typeof MaterialIcons>["name"];
   color: string;
 }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
+  return <MaterialIcons size={24} {...props} />;
 }
 
 export type DataListStackParams = {
