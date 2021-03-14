@@ -14,11 +14,35 @@ import {
   getCurrentPositionAsync,
 } from "expo-location";
 
-type Location = {
+export type Location = {
   lat: number;
   long: number;
   accuracy: number | null;
 };
+
+export type PickerOption<ValueType> = {
+  label: string;
+  value: ValueType;
+};
+
+export const CanopyConditionOptions = new Array<PickerOption<number>>(
+  { label: "Full Canopy", value: 1 },
+  { label: "Some Dead Branches", value: 2 },
+  { label: "Mostly Dead", value: 3 },
+  { label: "Completely Dead", value: 4 }
+);
+
+export const BarkConditionOptions = new Array<PickerOption<number>>(
+  { label: "Intact", value: 1 },
+  { label: "Light Damage", value: 2 },
+  { label: "Heavy Damage", value: 3 }
+);
+
+export const LocationTypeOptions = new Array<PickerOption<string>>(
+  { label: "Forested Area", value: "forest" },
+  { label: "City Park", value: "park" },
+  { label: "Street", value: "street" }
+);
 
 export type FormValues = {
   location: Location | undefined;
@@ -146,35 +170,28 @@ export default function DataForm({
         keyboardType="numeric"
       />
 
-      <Caption>Canopy Condition</Caption>
-      <Picker
-        selectedValue={canopyCondition}
-        onValueChange={setCanopyCondition}
-      >
-        <Picker.Item label="(n/a)" value={undefined} />
-        <Picker.Item label="Full Canopy" value={0} />
-        <Picker.Item label="Some Dead Branches" value={1} />
-        <Picker.Item label="Mostly Dead" value={2} />
-        <Picker.Item label="Completely Dead" value={3} />
-      </Picker>
+      <PickerInput
+        caption="Canopy Condition"
+        value={canopyCondition}
+        onChange={setCanopyCondition}
+        items={CanopyConditionOptions}
+      />
 
       <Spacer />
 
-      <Caption>Bark Condition</Caption>
-      <Picker selectedValue={barkCondition} onValueChange={setBarkCondition}>
-        <Picker.Item label="(n/a)" value={undefined} />
-        <Picker.Item label="Intact" value={0} />
-        <Picker.Item label="Light Damage" value={1} />
-        <Picker.Item label="Heavy Damage" value={2} />
-      </Picker>
+      <PickerInput
+        caption="Bark Condition"
+        value={barkCondition}
+        onChange={setBarkCondition}
+        items={BarkConditionOptions}
+      />
 
-      <Caption>Location Type</Caption>
-      <Picker selectedValue={locationType} onValueChange={setLocationType}>
-        <Picker.Item label="(n/a)" value={undefined} />
-        <Picker.Item label="Forested Area" value="forest" />
-        <Picker.Item label="City Park" value="park" />
-        <Picker.Item label="Street" value="street" />
-      </Picker>
+      <PickerInput
+        caption="Location Type"
+        value={locationType}
+        onChange={setLocationType}
+        items={LocationTypeOptions}
+      />
 
       <Spacer />
 
@@ -190,5 +207,33 @@ export default function DataForm({
         Save
       </Button>
     </View>
+  );
+}
+
+function PickerInput<ValueType>({
+  caption,
+  value,
+  onChange,
+  items,
+}: {
+  caption: string;
+  value: ValueType | undefined;
+  onChange: (value: ValueType | undefined) => any;
+  items: Array<PickerOption<ValueType>>;
+}) {
+  return (
+    <>
+      <Caption>Canopy Condition</Caption>
+      <Picker selectedValue={value} onValueChange={onChange}>
+        <Picker.Item label="(n/a)" value={undefined} />
+        {items.map((option: PickerOption<ValueType>) => (
+          <Picker.Item
+            key={`${option.value}_${option.label}`}
+            label={option.label}
+            value={option.value}
+          />
+        ))}
+      </Picker>
+    </>
   );
 }
