@@ -54,10 +54,16 @@ const dataSlice = createSlice({
       ) as Data[],
     removeData: (state, action: PayloadAction<string>) =>
       state.filter((data: Data) => data.id !== action.payload),
+    replaceData: (_, action: PayloadAction<Data[]>) => action.payload,
   },
   extraReducers: {},
 });
 
-export const { addData, updateData, removeData } = dataSlice.actions;
+export const {
+  addData,
+  updateData,
+  removeData,
+  replaceData,
+} = dataSlice.actions;
 
 export default dataSlice.reducer;
