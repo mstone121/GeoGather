@@ -143,34 +143,16 @@ export default function SaveData({
         <View style={{ padding: 8 }}>
           {error && <Text style={{ color: theme.colors.error }}>{error}</Text>}
           <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <Title>Files</Title>
             <IconButton icon="refresh" onPress={() => refreshFileList()} />
           </View>
-          <List.Section>
-            {files.map((fileName: string) => (
-              <List.Accordion
-                key={fileName}
-                title={fileName}
-                style={{ marginTop: 8 }}
-              >
-                <View style={{ flexDirection: "row" }}>
-                  <IconButton
-                    icon="file-upload"
-                    onPress={() => setToLoad(fileName)}
-                  />
-                  <IconButton
-                    icon="delete"
-                    onPress={() => setToDelete(fileName)}
-                  />
-                </View>
-              </List.Accordion>
-            ))}
-          </List.Section>
+          <FileList
+            files={files}
+            setToDelete={setToDelete}
+            setToLoad={setToLoad}
+          />
         </View>
       </ScreenContainer>
       <ConfirmDeleteModal
@@ -186,6 +168,36 @@ export default function SaveData({
     </>
   );
 }
+
+const FileList = React.memo(
+  ({
+    files,
+    setToLoad,
+    setToDelete,
+  }: {
+    files: string[];
+    setToLoad: (toLoad: string | undefined) => any;
+    setToDelete: (toDelete: string | undefined) => any;
+  }) => (
+    <List.Section>
+      {files.map((fileName: string) => (
+        <List.Accordion
+          key={fileName}
+          title={fileName}
+          style={{ marginTop: 8 }}
+        >
+          <View style={{ flexDirection: "row" }}>
+            <IconButton
+              icon="file-upload"
+              onPress={() => setToLoad(fileName)}
+            />
+            <IconButton icon="delete" onPress={() => setToDelete(fileName)} />
+          </View>
+        </List.Accordion>
+      ))}
+    </List.Section>
+  )
+);
 
 const ConfirmDeleteModal = React.memo(
   ({
