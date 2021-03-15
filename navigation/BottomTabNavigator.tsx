@@ -36,6 +36,7 @@ export default function BottomTabNavigator() {
         name="DataList"
         component={DataListNavigator}
         options={{
+          title: "Data List",
           tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
         }}
       />
@@ -43,6 +44,7 @@ export default function BottomTabNavigator() {
         name="SaveData"
         component={SaveDataScreen}
         options={{
+          title: "Save Data",
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="save-alt" color={color} />
           ),
