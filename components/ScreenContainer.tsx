@@ -7,7 +7,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 type ScreenContainerProps = {
   title: string;
   navigation: StackNavigationProp<ParamListBase>;
-  children?: React.ReactElement;
+  children?: React.ReactElement | Array<React.ReactElement>;
 };
 
 export default function ScreenContainer({
