@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View } from "react-native";
+
 import { useDispatch, useSelector } from "react-redux";
 import { StackScreenProps } from "@react-navigation/stack";
+import { View } from "react-native";
 import {
   Button,
   IconButton,
@@ -230,14 +231,14 @@ const ConfirmDeleteModal = React.memo(
             style={{ margin: 8 }}
             onPress={() => confirmDelete()}
           >
-            Yes
+            Delete
           </Button>
           <Button
             mode="outlined"
             style={{ margin: 8 }}
             onPress={() => setToDelete(undefined)}
           >
-            No
+            Cancel
           </Button>
         </View>
       </Modal>
@@ -277,14 +278,14 @@ const ConfirmLoadModal = React.memo(
             style={{ margin: 8 }}
             onPress={() => confirmLoad()}
           >
-            Yes
+            Load
           </Button>
           <Button
             mode="outlined"
             style={{ margin: 8 }}
             onPress={() => setToLoad(undefined)}
           >
-            No
+            Cancel
           </Button>
         </View>
       </Modal>
