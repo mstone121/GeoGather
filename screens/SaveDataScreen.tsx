@@ -125,7 +125,7 @@ export default function SaveData({
       }
     }
     setToLoad(undefined);
-  }, [toDelete, dispatch, setError, setToLoad, checkForDataDir]);
+  }, [toLoad, dispatch, setError, setToLoad, checkForDataDir]);
 
   useEffect(() => {
     refreshFileList();
