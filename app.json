@@ -1,11 +1,15 @@
 {
   "expo": {
     "name": "GeoGather",
-    "slug": "GeoGather",
-    "version": "1.0.0",
+    "description": "An app for making observations of Emerald Ash Borer infected Ash trees",
+    "slug": "geo-gather",
+    "privacy": "unlisted",
+    "version": "0.1.0",
+    "githubUrl": "https://github.com/mstone121/GeoGather",
+    "primaryColor": "#347227",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "geo-gather",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -25,7 +29,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "site.mattstone.GeoGather"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
