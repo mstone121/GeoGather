@@ -2,11 +2,12 @@ import React from "react";
 import { View } from "react-native";
 import { Appbar, Divider } from "react-native-paper";
 import { ParamListBase } from "@react-navigation/routers";
-import { StackNavigationProp } from "@react-navigation/stack";
+
+import { NavigationProp } from "@react-navigation/native";
 
 type ScreenContainerProps = {
   title: string;
-  navigation: StackNavigationProp<ParamListBase>;
+  navigation: NavigationProp<ParamListBase>;
   children?: React.ReactElement | Array<React.ReactElement>;
   noBack?: boolean;
 };

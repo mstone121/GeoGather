@@ -1,12 +1,19 @@
 import React, { useCallback, useState } from "react";
 import { View, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { StackScreenProps } from "@react-navigation/stack";
 import { Button, Card, List, useTheme } from "react-native-paper";
 
+import { CompositeNavigationProp } from "@react-navigation/native";
+import { MaterialBottomTabNavigationProp } from "@react-navigation/material-bottom-tabs";
+import { StackNavigationProp } from "@react-navigation/stack";
+
 import { BottomTabStackParams } from "../navigation/BottomTabNavigator";
+import { DataListStackParams } from "../navigation/DataListNavigator";
 import { RootState } from "../reducers";
 import { Data, removeData } from "../reducers/dataSlice";
+import ScreenContainer from "../components/ScreenContainer";
+import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
+
 import {
   PickerOption,
   CanopyConditionOptions,
@@ -14,8 +21,11 @@ import {
   LocationTypeOptions,
   SpeciesOptions,
 } from "../components/DataForm";
-import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
-import ScreenContainer from "../components/ScreenContainer";
+
+type DataListScreenNavigationProp = CompositeNavigationProp<
+  MaterialBottomTabNavigationProp<BottomTabStackParams, "DataList">,
+  StackNavigationProp<DataListStackParams>
+>;
 
 const getOptionsLabel = <ValueType,>(
   options: Array<PickerOption<ValueType>>,
@@ -26,7 +36,9 @@ const getOptionsLabel = <ValueType,>(
 
 export default function DataListScreen({
   navigation,
-}: StackScreenProps<BottomTabStackParams, "DataList">) {
+}: {
+  navigation: DataListScreenNavigationProp;
+}) {
   const dispatch = useDispatch();
   const dataList = useSelector((state: RootState) => state.data);
   const [toDelete, setToDelete] = useState<undefined | string>();
