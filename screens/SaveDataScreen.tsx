@@ -29,20 +29,6 @@ import { replaceData } from "../reducers/dataSlice";
 
 const dataDir = `${documentDirectory}data`;
 
-/*
-const padNum = (num: number) => num.toString().padStart(2, "0");
-
-const getDateFileName = (date: Date) => {
-  const year = date.getFullYear();
-  const month = padNum(date.getMonth());
-  const day = padNum(date.getDate());
-  const hours = padNum(date.getHours());
-  const minutes = padNum(date.getMinutes());
-  const seconds = padNum(date.getSeconds());
-  return `${year}-${month}-${day}_${hours}:${minutes}:${seconds}_GeoGatherDate.json`;
-};
-*/
-
 export default function SaveData({
   navigation,
 }: StackScreenProps<BottomTabStackParams, "SaveData">) {
