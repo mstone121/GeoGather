@@ -21,6 +21,7 @@ import {
   readAsStringAsync,
   writeAsStringAsync,
 } from "expo-file-system";
+import * as Sharing from "expo-sharing";
 
 import { BottomTabStackParams } from "../navigation/BottomTabNavigator";
 import ScreenContainer from "../components/ScreenContainer";
@@ -113,6 +114,15 @@ export default function SaveData({
     setToLoad(undefined);
   }, [toLoad, dispatch, checkForDataDir]);
 
+  const shareFile = useCallback(async (fileName: string) => {
+    setError(undefined);
+    if (!(await Sharing.isAvailableAsync())) {
+      setError("Sharing is not available");
+    }
+
+    Sharing.shareAsync(`${dataDir}/${fileName}`);
+  }, []);
+
   useEffect(() => {
     refreshFileList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -141,6 +151,7 @@ export default function SaveData({
               files={files}
               setToDelete={setToDelete}
               setToLoad={setToLoad}
+              shareFile={shareFile}
             />
           </ScrollView>
         </View>
@@ -164,10 +175,12 @@ const FileList = React.memo(
     files,
     setToLoad,
     setToDelete,
+    shareFile,
   }: {
     files: string[];
     setToLoad: (toLoad: string | undefined) => void;
     setToDelete: (toDelete: string | undefined) => void;
+    shareFile: (fileName: string) => void;
   }) => (
     <List.Section>
       {files.map((fileName: string) => (
@@ -177,6 +190,7 @@ const FileList = React.memo(
           style={{ marginTop: 8 }}
         >
           <View style={{ flexDirection: "row" }}>
+            <IconButton icon="share" onPress={() => shareFile(fileName)} />
             <IconButton
               icon="file-upload"
               onPress={() => setToLoad(fileName)}
