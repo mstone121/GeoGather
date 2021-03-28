@@ -93,16 +93,7 @@ export default function DataForm({
     setLocationType(formValues?.locationType);
     setNotes(formValues?.notes);
     setLocation(formValues?.location);
-  }, [
-    formValues,
-    setBores,
-    setTrunkCirc,
-    setCanopyCondition,
-    setBarkCondition,
-    setLocationType,
-    setNotes,
-    setLocation,
-  ]);
+  }, [formValues]);
 
   const getLocation = () => {
     setLoading(true);

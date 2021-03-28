@@ -65,7 +65,7 @@ export default function SaveData({
         console.error(error);
       }
     },
-    [checkForDataDir, setError, setFiles]
+    [checkForDataDir]
   );
 
   const saveCurrentData = useCallback(async () => {
@@ -81,7 +81,7 @@ export default function SaveData({
       setError("Could not save current data");
       console.error(error);
     }
-  }, [data, setError, checkForDataDir, refreshFileList]);
+  }, [data, checkForDataDir, refreshFileList]);
 
   const confirmDelete = useCallback(async () => {
     setError(undefined);
@@ -96,7 +96,7 @@ export default function SaveData({
       }
     }
     setToDelete(undefined);
-  }, [toDelete, setError, checkForDataDir, refreshFileList]);
+  }, [toDelete, checkForDataDir, refreshFileList]);
 
   const confirmLoad = useCallback(async () => {
     setError(undefined);
@@ -111,7 +111,7 @@ export default function SaveData({
       }
     }
     setToLoad(undefined);
-  }, [toLoad, dispatch, setError, setToLoad, checkForDataDir]);
+  }, [toLoad, dispatch, checkForDataDir]);
 
   useEffect(() => {
     refreshFileList();
