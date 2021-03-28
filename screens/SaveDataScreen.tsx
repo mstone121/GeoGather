@@ -55,7 +55,7 @@ export default function SaveData({
   }, []);
 
   const refreshFileList = useCallback(
-    async (skipCheck: boolean = false) => {
+    async (skipCheck = false) => {
       setError(undefined);
       try {
         if (!skipCheck) await checkForDataDir();
@@ -115,6 +115,7 @@ export default function SaveData({
 
   useEffect(() => {
     refreshFileList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -165,8 +166,8 @@ const FileList = React.memo(
     setToDelete,
   }: {
     files: string[];
-    setToLoad: (toLoad: string | undefined) => any;
-    setToDelete: (toDelete: string | undefined) => any;
+    setToLoad: (toLoad: string | undefined) => void;
+    setToDelete: (toDelete: string | undefined) => void;
   }) => (
     <List.Section>
       {files.map((fileName: string) => (
@@ -195,8 +196,8 @@ const ConfirmDeleteModal = React.memo(
     confirmDelete,
   }: {
     toDelete: string | undefined;
-    setToDelete: (toDelete: string | undefined) => any;
-    confirmDelete: () => any;
+    setToDelete: (toDelete: string | undefined) => void;
+    confirmDelete: () => void;
   }) => {
     const theme = useTheme();
     return (
@@ -241,8 +242,8 @@ const ConfirmLoadModal = React.memo(
     confirmLoad,
   }: {
     toLoad: string | undefined;
-    setToLoad: (toLoad: string | undefined) => any;
-    confirmLoad: () => any;
+    setToLoad: (toLoad: string | undefined) => void;
+    confirmLoad: () => void;
   }) => {
     const theme = useTheme();
     return (

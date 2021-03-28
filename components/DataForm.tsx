@@ -69,7 +69,7 @@ export default function DataForm({
   onSubmit,
   formValues,
 }: {
-  onSubmit: (formValues: FormValues) => any;
+  onSubmit: (formValues: FormValues) => void;
   formValues?: FormValues;
 }) {
   const theme = useTheme();
@@ -244,7 +244,7 @@ function PickerInput<ValueType>({
 }: {
   caption: string;
   value: ValueType | undefined;
-  onChange: (value: ValueType | undefined) => any;
+  onChange: (value: ValueType | undefined) => void;
   items: Array<PickerOption<ValueType>>;
 }) {
   return (

@@ -5,7 +5,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import LinkingConfiguration from "./LinkingConfiguration";
 import BottomTabNavigator from "./BottomTabNavigator";
 import NotFoundScreen from "../screens/NotFoundScreen";
-import EditData from "../screens/EditDataScreen";
 
 export default function Navigation() {
   return (

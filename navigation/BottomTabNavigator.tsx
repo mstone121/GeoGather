@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, useTheme } from "react-native-paper";
+import { useTheme } from "react-native-paper";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -29,6 +29,7 @@ export default function BottomTabNavigator() {
         component={AddDataScreen}
         options={{
           title: "Add Data",
+          // eslint-disable-next-line react/prop-types
           tabBarIcon: ({ color }) => <TabBarIcon name="add" color={color} />,
         }}
       />
@@ -37,6 +38,7 @@ export default function BottomTabNavigator() {
         component={DataListNavigator}
         options={{
           title: "Data List",
+          // eslint-disable-next-line react/prop-types
           tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
         }}
       />
@@ -45,6 +47,7 @@ export default function BottomTabNavigator() {
         component={SaveDataScreen}
         options={{
           title: "Save Data",
+          // eslint-disable-next-line react/prop-types
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="save-alt" color={color} />
           ),
