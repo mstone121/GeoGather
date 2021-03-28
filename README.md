@@ -3,6 +3,8 @@ An Expo app for gathering observations of emerald ash borer (EAB) infected trees
 
 Observation data can be saved to local storage and shared with other apps.
 
+See the [wiki](https://github.com/mstone121/GeoGather/wiki) for screen shots.
+
 ### Ideas
 - User defined observation schemas (not just EAB)
 - Google Maps integration
