@@ -44,7 +44,7 @@ export default function DataListScreen({
   };
 
   return (
-    <ScreenContainer title="Data List" navigation={navigation}>
+    <ScreenContainer title="Data List" navigation={navigation} noBack>
       <View style={{ flex: 1 }}>
         <ScrollView style={{ padding: 8 }}>
           <List.Section>

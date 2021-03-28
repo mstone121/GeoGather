@@ -8,17 +8,19 @@ type ScreenContainerProps = {
   title: string;
   navigation: StackNavigationProp<ParamListBase>;
   children?: React.ReactElement | Array<React.ReactElement>;
+  noBack?: boolean;
 };
 
 export default function ScreenContainer({
   title,
   children,
   navigation,
+  noBack,
 }: ScreenContainerProps) {
   return (
     <View style={{ flex: 1 }}>
       <Appbar.Header>
-        {navigation.canGoBack() && (
+        {!noBack && navigation.canGoBack() && (
           <Appbar.BackAction
             onPress={() => {
               navigation.goBack();
