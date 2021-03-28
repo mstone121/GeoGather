@@ -12,6 +12,7 @@ import {
   CanopyConditionOptions,
   BarkConditionOptions,
   LocationTypeOptions,
+  SpeciesOptions,
 } from "../components/DataForm";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 
@@ -91,12 +92,18 @@ const DataListItem = React.memo(
             }
           />
           <List.Item
-            title="Bores"
-            description={data.formValues.bores ?? "(n/a)"}
+            title="Location Type"
+            description={getOptionsLabel(
+              LocationTypeOptions,
+              data.formValues.locationType
+            )}
           />
           <List.Item
-            title="Trunk Circumference at 1m (cm)"
-            description={data.formValues.trunkCirc ?? "(n/a)"}
+            title="Species"
+            description={getOptionsLabel(
+              SpeciesOptions,
+              data.formValues.species
+            )}
           />
           <List.Item
             title="Canopy Condition"
@@ -113,11 +120,12 @@ const DataListItem = React.memo(
             )}
           />
           <List.Item
-            title="Location Type"
-            description={getOptionsLabel(
-              LocationTypeOptions,
-              data.formValues.locationType
-            )}
+            title="Bores"
+            description={data.formValues.bores ?? "(n/a)"}
+          />
+          <List.Item
+            title="Trunk Circumference at 1m (cm)"
+            description={data.formValues.trunkCirc ?? "(n/a)"}
           />
           <List.Item
             title="Notes"

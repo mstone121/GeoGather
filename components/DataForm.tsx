@@ -26,6 +26,19 @@ export type PickerOption<ValueType> = {
   value: ValueType;
 };
 
+export const LocationTypeOptions = new Array<PickerOption<string>>(
+  { label: "Forested Area", value: "forest" },
+  { label: "City Park", value: "park" },
+  { label: "Street", value: "street" }
+);
+
+export const SpeciesOptions = new Array<PickerOption<string>>(
+  { label: "White Ash", value: "white" },
+  { label: "Green Ash", value: "green" },
+  { label: "Black Ash", value: "black" },
+  { label: "Blue Ash", value: "blue" }
+);
+
 export const CanopyConditionOptions = new Array<PickerOption<number>>(
   { label: "Full Canopy", value: 1 },
   { label: "Some Dead Branches", value: 2 },
@@ -39,19 +52,14 @@ export const BarkConditionOptions = new Array<PickerOption<number>>(
   { label: "Heavy Damage", value: 3 }
 );
 
-export const LocationTypeOptions = new Array<PickerOption<string>>(
-  { label: "Forested Area", value: "forest" },
-  { label: "City Park", value: "park" },
-  { label: "Street", value: "street" }
-);
-
 export type FormValues = {
   location: Location | undefined;
-  bores: number | undefined;
-  trunkCirc: number | undefined;
+  locationType: string | undefined;
+  species: string | undefined;
   canopyCondition: number | undefined;
   barkCondition: number | undefined;
-  locationType: string | undefined;
+  bores: number | undefined;
+  trunkCirc: number | undefined;
   notes: string | undefined;
 };
 
@@ -74,25 +82,27 @@ export default function DataForm({
 }) {
   const theme = useTheme();
 
-  const [bores, setBores] = useState<number | undefined>();
-  const [trunkCirc, setTrunkCirc] = useState<number | undefined>();
-  const [canopyCondition, setCanopyCondition] = useState<number | undefined>();
-  const [barkCondition, setBarkCondition] = useState<number | undefined>();
-  const [locationType, setLocationType] = useState<string | undefined>();
-  const [notes, setNotes] = useState<string | undefined>();
-
   const [location, setLocation] = useState<Location | undefined>();
   const [errorMsg, setErrorMsg] = useState<string | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
 
+  const [locationType, setLocationType] = useState<string | undefined>();
+  const [species, setSpecies] = useState<string | undefined>();
+  const [canopyCondition, setCanopyCondition] = useState<number | undefined>();
+  const [barkCondition, setBarkCondition] = useState<number | undefined>();
+  const [bores, setBores] = useState<number | undefined>();
+  const [trunkCirc, setTrunkCirc] = useState<number | undefined>();
+  const [notes, setNotes] = useState<string | undefined>();
+
   useEffect(() => {
-    setBores(formValues?.bores);
-    setTrunkCirc(formValues?.trunkCirc);
+    setLocation(formValues?.location);
+    setLocationType(formValues?.locationType);
+    setSpecies(formValues?.species);
     setCanopyCondition(formValues?.canopyCondition);
     setBarkCondition(formValues?.barkCondition);
-    setLocationType(formValues?.locationType);
+    setBores(formValues?.bores);
+    setTrunkCirc(formValues?.trunkCirc);
     setNotes(formValues?.notes);
-    setLocation(formValues?.location);
   }, [formValues]);
 
   const getLocation = () => {
@@ -124,24 +134,27 @@ export default function DataForm({
   const submitForm = () => {
     onSubmit({
       location,
-      bores,
-      trunkCirc,
+      locationType,
+      species,
       canopyCondition,
       barkCondition,
-      locationType,
+      bores,
+      trunkCirc,
       notes,
     });
 
     // reset form
     setLocation(undefined);
-    setBores(undefined);
-    setTrunkCirc(undefined);
-    setCanopyCondition(undefined);
-    setBarkCondition(undefined);
-    setLocationType(undefined);
-    setLocation(undefined);
     setErrorMsg(undefined);
     setLoading(false);
+
+    setSpecies(undefined);
+    setLocationType(undefined);
+    setCanopyCondition(undefined);
+    setBarkCondition(undefined);
+    setBores(undefined);
+    setTrunkCirc(undefined);
+    setNotes(undefined);
   };
 
   return (
@@ -167,20 +180,20 @@ export default function DataForm({
 
       <Spacer />
 
-      <TextInput
-        label="Bore Count"
-        value={bores?.toString() ?? ""}
-        onChangeText={(newValue) => setBores(convertToInt(newValue))}
-        keyboardType="numeric"
+      <PickerInput
+        caption="Location Type"
+        value={locationType}
+        onChange={setLocationType}
+        items={LocationTypeOptions}
       />
 
       <Spacer />
 
-      <TextInput
-        label="Trunk Circumference (cm) at 1m"
-        value={trunkCirc?.toString() ?? ""}
-        onChangeText={(newValue) => setTrunkCirc(convertToInt(newValue))}
-        keyboardType="numeric"
+      <PickerInput
+        caption="Species"
+        value={species}
+        onChange={setSpecies}
+        items={SpeciesOptions}
       />
 
       <Spacer />
@@ -203,11 +216,20 @@ export default function DataForm({
 
       <Spacer />
 
-      <PickerInput
-        caption="Location Type"
-        value={locationType}
-        onChange={setLocationType}
-        items={LocationTypeOptions}
+      <TextInput
+        label="Bore Count"
+        value={bores?.toString() ?? ""}
+        onChangeText={(newValue) => setBores(convertToInt(newValue))}
+        keyboardType="numeric"
+      />
+
+      <Spacer />
+
+      <TextInput
+        label="Trunk Circumference (cm) at 1m"
+        value={trunkCirc?.toString() ?? ""}
+        onChangeText={(newValue) => setTrunkCirc(convertToInt(newValue))}
+        keyboardType="numeric"
       />
 
       <Spacer />
