@@ -232,19 +232,19 @@ const ConfirmLoadModal = React.memo(
         </Text>
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
           <Button
+            mode="outlined"
+            style={{ margin: 8 }}
+            onPress={() => setToLoad(undefined)}
+          >
+            Cancel
+          </Button>
+          <Button
             mode="contained"
             color={theme.colors.error}
             style={{ margin: 8 }}
             onPress={() => confirmLoad()}
           >
             Load
-          </Button>
-          <Button
-            mode="outlined"
-            style={{ margin: 8 }}
-            onPress={() => setToLoad(undefined)}
-          >
-            Cancel
           </Button>
         </View>
       </Modal>

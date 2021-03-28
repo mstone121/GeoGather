@@ -1,18 +1,19 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { View, ScrollView } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StackScreenProps } from "@react-navigation/stack";
-import { Button, Card, List } from "react-native-paper";
+import { Button, Card, List, useTheme } from "react-native-paper";
 
 import { DataListStackParams } from "../navigation/BottomTabNavigator";
 import { RootState } from "../reducers";
-import { Data } from "../reducers/dataSlice";
+import { Data, removeData } from "../reducers/dataSlice";
 import {
   PickerOption,
   CanopyConditionOptions,
   BarkConditionOptions,
   LocationTypeOptions,
 } from "../components/DataForm";
+import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 
 const getOptionsLabel = <ValueType,>(
   options: Array<PickerOption<ValueType>>,
@@ -24,28 +25,60 @@ const getOptionsLabel = <ValueType,>(
 export default function DataListScreen({
   navigation,
 }: StackScreenProps<DataListStackParams, "DataList">) {
+  const dispatch = useDispatch();
   const dataList = useSelector((state: RootState) => state.data);
+  const [toDelete, setToDelete] = useState<undefined | string>();
 
   const editItem = useCallback(
     (id: string) => navigation.navigate("EditData", { id }),
     [navigation]
   );
 
+  const deleteData = () => {
+    if (toDelete) {
+      dispatch(removeData(toDelete));
+      setToDelete(undefined);
+    }
+  };
+
   return (
-    <View style={{ flex: 1 }}>
-      <ScrollView style={{ padding: 8 }}>
-        <List.Section>
-          {dataList.map((data: Data) => (
-            <DataListItem key={data.id} data={data} editItem={editItem} />
-          ))}
-        </List.Section>
-      </ScrollView>
-    </View>
+    <>
+      <View style={{ flex: 1 }}>
+        <ScrollView style={{ padding: 8 }}>
+          <List.Section>
+            {dataList.map((data: Data) => (
+              <DataListItem
+                key={data.id}
+                data={data}
+                editItem={editItem}
+                setToDelete={setToDelete}
+              />
+            ))}
+          </List.Section>
+        </ScrollView>
+      </View>
+      <ConfirmDeleteModal
+        visible={Boolean(toDelete)}
+        deleteString="this observation"
+        cancelDelete={() => setToDelete(undefined)}
+        confirmDelete={() => deleteData()}
+      />
+    </>
   );
 }
 
 const DataListItem = React.memo(
-  ({ data, editItem }: { data: Data; editItem: (id: string) => void }) => {
+  ({
+    data,
+    editItem,
+    setToDelete,
+  }: {
+    data: Data;
+    editItem: (id: string) => void;
+    setToDelete: (toDelete: string) => void;
+  }) => {
+    const theme = useTheme();
+
     return (
       <List.Accordion title={new Date(data.createdAt).toString()}>
         <Card>
@@ -91,8 +124,21 @@ const DataListItem = React.memo(
             description={data.formValues.notes ?? "(n/a)"}
           />
           <List.Item
-            title={<Button mode="contained">Edit</Button>}
-            onPress={() => editItem(data.id)}
+            title={
+              <View style={{ flexDirection: "row" }}>
+                <Button mode="contained" onPress={() => editItem(data.id)}>
+                  Edit
+                </Button>
+                <Button
+                  mode="contained"
+                  onPress={() => setToDelete(data.id)}
+                  color={theme.colors.error}
+                  style={{ marginLeft: 16 }}
+                >
+                  Delete
+                </Button>
+              </View>
+            }
           />
         </Card>
       </List.Accordion>

@@ -30,19 +30,19 @@ function ConfirmDeleteModal({
       </Text>
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <Button
+          mode="outlined"
+          style={{ margin: 8 }}
+          onPress={() => cancelDelete()}
+        >
+          Cancel
+        </Button>
+        <Button
           mode="contained"
           color={theme.colors.error}
           style={{ margin: 8 }}
           onPress={() => confirmDelete()}
         >
           Delete
-        </Button>
-        <Button
-          mode="outlined"
-          style={{ margin: 8 }}
-          onPress={() => cancelDelete()}
-        >
-          Cancel
         </Button>
       </View>
     </Modal>
