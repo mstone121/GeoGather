@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
 import { StackScreenProps } from "@react-navigation/stack";
 import { Button, Card, List } from "react-native-paper";
@@ -32,12 +32,14 @@ export default function DataListScreen({
   );
 
   return (
-    <View>
-      <List.Section>
-        {dataList.map((data: Data) => (
-          <DataListItem key={data.id} data={data} editItem={editItem} />
-        ))}
-      </List.Section>
+    <View style={{ flex: 1 }}>
+      <ScrollView style={{ padding: 8 }}>
+        <List.Section>
+          {dataList.map((data: Data) => (
+            <DataListItem key={data.id} data={data} editItem={editItem} />
+          ))}
+        </List.Section>
+      </ScrollView>
     </View>
   );
 }

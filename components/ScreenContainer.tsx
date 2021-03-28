@@ -16,7 +16,7 @@ export default function ScreenContainer({
   navigation,
 }: ScreenContainerProps) {
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Appbar.Header>
         {navigation.canGoBack() && (
           <Appbar.BackAction

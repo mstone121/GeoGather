@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { StackScreenProps } from "@react-navigation/stack";
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
 import {
   Button,
   IconButton,
@@ -141,19 +141,21 @@ export default function SaveData({
         >
           Save Current Data to File
         </Button>
-        <View style={{ padding: 8 }}>
+        <View style={{ padding: 8, paddingBottom: 0, flex: 1 }}>
           {error && <Text style={{ color: theme.colors.error }}>{error}</Text>}
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <Title>Files</Title>
+            <Title style={{ paddingLeft: 8 }}>Saved Files</Title>
             <IconButton icon="refresh" onPress={() => refreshFileList()} />
           </View>
-          <FileList
-            files={files}
-            setToDelete={setToDelete}
-            setToLoad={setToLoad}
-          />
+          <ScrollView>
+            <FileList
+              files={files}
+              setToDelete={setToDelete}
+              setToLoad={setToLoad}
+            />
+          </ScrollView>
         </View>
       </ScreenContainer>
       <ConfirmDeleteModal
