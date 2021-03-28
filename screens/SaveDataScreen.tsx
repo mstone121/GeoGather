@@ -27,6 +27,7 @@ import { BottomTabStackParams } from "../navigation/BottomTabNavigator";
 import ScreenContainer from "../components/ScreenContainer";
 import { RootState } from "../reducers";
 import { replaceData } from "../reducers/dataSlice";
+import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 
 const dataDir = `${documentDirectory}data`;
 
@@ -157,8 +158,9 @@ export default function SaveData({
         </View>
       </ScreenContainer>
       <ConfirmDeleteModal
-        toDelete={toDelete}
-        setToDelete={setToDelete}
+        visible={Boolean(toDelete)}
+        deleteString={toDelete}
+        cancelDelete={() => setToDelete(undefined)}
         confirmDelete={confirmDelete}
       ></ConfirmDeleteModal>
       <ConfirmLoadModal
@@ -201,52 +203,6 @@ const FileList = React.memo(
       ))}
     </List.Section>
   )
-);
-
-const ConfirmDeleteModal = React.memo(
-  ({
-    toDelete,
-    setToDelete,
-    confirmDelete,
-  }: {
-    toDelete: string | undefined;
-    setToDelete: (toDelete: string | undefined) => void;
-    confirmDelete: () => void;
-  }) => {
-    const theme = useTheme();
-    return (
-      <Modal
-        visible={Boolean(toDelete)}
-        onDismiss={() => setToDelete(undefined)}
-        contentContainerStyle={{
-          backgroundColor: "white",
-          padding: 20,
-          margin: 16,
-        }}
-      >
-        <Text style={{ textAlign: "center", marginBottom: 16 }}>
-          Are you sure you want to delete {toDelete}?
-        </Text>
-        <View style={{ flexDirection: "row", justifyContent: "center" }}>
-          <Button
-            mode="contained"
-            color={theme.colors.error}
-            style={{ margin: 8 }}
-            onPress={() => confirmDelete()}
-          >
-            Delete
-          </Button>
-          <Button
-            mode="outlined"
-            style={{ margin: 8 }}
-            onPress={() => setToDelete(undefined)}
-          >
-            Cancel
-          </Button>
-        </View>
-      </Modal>
-    );
-  }
 );
 
 const ConfirmLoadModal = React.memo(
