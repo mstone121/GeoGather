@@ -145,7 +145,7 @@ export default function DataForm({
   };
 
   return (
-    <ScrollView style={padding8}>
+    <ScrollView style={{ ...padding8, paddingBottom: 0 }}>
       <Button
         disabled={loading}
         onPress={getLocation}
@@ -224,6 +224,8 @@ export default function DataForm({
       <Button onPress={submitForm} mode="contained">
         Save
       </Button>
+
+      <Spacer />
     </ScrollView>
   );
 }
