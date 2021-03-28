@@ -216,6 +216,7 @@ export default function DataForm({
         label="Notes"
         value={notes ?? ""}
         onChangeText={(newNotes) => setNotes(newNotes)}
+        multiline
       />
 
       <Spacer />
