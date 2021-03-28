@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import LinkingConfiguration from "./LinkingConfiguration";
-import BottomTabNavigator from "./BottomTabNavigator";
+import DataListNavigator from "./DataListNavigator";
 import NotFoundScreen from "../screens/NotFoundScreen";
 
 export default function Navigation() {
@@ -24,7 +24,7 @@ const RootStack = createStackNavigator<RootStackParams>();
 function RootNavigator() {
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }}>
-      <RootStack.Screen name="Root" component={BottomTabNavigator} />
+      <RootStack.Screen name="Root" component={DataListNavigator} />
       <RootStack.Screen
         name="NotFound"
         component={NotFoundScreen}

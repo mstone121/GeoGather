@@ -1,13 +1,11 @@
 import React from "react";
 import { useTheme } from "react-native-paper";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
 import { MaterialIcons } from "@expo/vector-icons";
 
 import AddDataScreen from "../screens/AddDataScreen";
 import SaveDataScreen from "../screens/SaveDataScreen";
 import DataListScreen from "../screens/DataListScreen";
-import EditDataScreen from "../screens/EditDataScreen";
 
 export type BottomTabStackParams = {
   AddData: undefined;
@@ -35,7 +33,7 @@ export default function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="DataList"
-        component={DataListNavigator}
+        component={DataListScreen}
         options={{
           title: "Data List",
           // eslint-disable-next-line react/prop-types
@@ -62,36 +60,4 @@ function TabBarIcon(props: {
   color: string;
 }) {
   return <MaterialIcons size={24} {...props} />;
-}
-
-export type DataListStackParams = {
-  DataList: undefined;
-  EditData: { id: string };
-};
-
-const DataList = createStackNavigator<DataListStackParams>();
-
-function DataListNavigator() {
-  const theme = useTheme();
-
-  return (
-    <DataList.Navigator
-      initialRouteName="DataList"
-      screenOptions={{
-        headerStyle: { backgroundColor: theme.colors.primary },
-        headerTintColor: "#fff",
-      }}
-    >
-      <DataList.Screen
-        name="DataList"
-        component={DataListScreen}
-        options={{ title: "Data List" }}
-      />
-      <DataList.Screen
-        name="EditData"
-        component={EditDataScreen}
-        options={{ title: "Edit Data" }}
-      />
-    </DataList.Navigator>
-  );
 }

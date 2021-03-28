@@ -6,14 +6,14 @@ export default {
     screens: {
       Root: {
         screens: {
-          AddDataScreen: "AddData",
-          DataList: {
+          DataListTabs: {
             screens: {
+              AddDataScreen: "AddData",
               DataListScreen: "DataList",
-              EditDataScreen: "EditData"
+              SaveDataScreen: "SaveData"
             }
           },
-          SaveDataScreen: "SaveData"
+          EditDataScreen: "EditData",
         }
       },
       NotFound: '*',

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { StackScreenProps } from "@react-navigation/stack";
 import { Button, Card, List, useTheme } from "react-native-paper";
 
-import { DataListStackParams } from "../navigation/BottomTabNavigator";
+import { BottomTabStackParams } from "../navigation/BottomTabNavigator";
 import { RootState } from "../reducers";
 import { Data, removeData } from "../reducers/dataSlice";
 import {
@@ -15,6 +15,7 @@ import {
   SpeciesOptions,
 } from "../components/DataForm";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
+import ScreenContainer from "../components/ScreenContainer";
 
 const getOptionsLabel = <ValueType,>(
   options: Array<PickerOption<ValueType>>,
@@ -25,7 +26,7 @@ const getOptionsLabel = <ValueType,>(
 
 export default function DataListScreen({
   navigation,
-}: StackScreenProps<DataListStackParams, "DataList">) {
+}: StackScreenProps<BottomTabStackParams, "DataList">) {
   const dispatch = useDispatch();
   const dataList = useSelector((state: RootState) => state.data);
   const [toDelete, setToDelete] = useState<undefined | string>();
@@ -43,7 +44,7 @@ export default function DataListScreen({
   };
 
   return (
-    <>
+    <ScreenContainer title="Data List" navigation={navigation}>
       <View style={{ flex: 1 }}>
         <ScrollView style={{ padding: 8 }}>
           <List.Section>
@@ -64,7 +65,7 @@ export default function DataListScreen({
         cancelDelete={() => setToDelete(undefined)}
         confirmDelete={() => deleteData()}
       />
-    </>
+    </ScreenContainer>
   );
 }
 
