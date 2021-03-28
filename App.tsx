@@ -1,7 +1,12 @@
 import React from "react";
+import { View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
+import {
+  DefaultTheme,
+  Provider as PaperProvider,
+  Title,
+} from "react-native-paper";
 import { Provider as StoreProvider } from "react-redux";
 
 import useCachedResources from "./hooks/useCachedResources";
@@ -27,7 +32,7 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <StoreProvider store={store}>
-          <PersistGate persistor={persistor}>
+          <PersistGate persistor={persistor} loading={<Loading />}>
             <PaperProvider theme={theme}>
               <Navigation />
               <StatusBar />
@@ -37,4 +42,12 @@ export default function App() {
       </SafeAreaProvider>
     );
   }
+}
+
+function Loading() {
+  return (
+    <View>
+      <Title>Loading...</Title>
+    </View>
+  );
 }
